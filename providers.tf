@@ -16,7 +16,5 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  kubernetes {
-    config_path = var.kubeconfig
-  }
+  kubernetes_config_path = var.kubeconfig
 }
