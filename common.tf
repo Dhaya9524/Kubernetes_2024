@@ -13,9 +13,9 @@ resource "helm_release" "postgres" {
 
   values = [
     <<EOF
-primary:
-  persistence:
-    size: 10Gi
+
+persistence:
+    enabled: false
 postgresqlPassword: "${var.postgres_password}"
 postgresqlDatabase: semaphore
 postgresqlUsername: semaphore
@@ -45,8 +45,8 @@ database:
     dbname: "semaphore"
     password: "${var.postgres_password}"
 persistence:
-  enabled: true
-  size: 5Gi
+  enabled: false
+#  size: 5Gi
 ingress:
   enabled: false
 EOF
