@@ -9,30 +9,33 @@ resource "helm_release" "postgres" {
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "postgresql"
   namespace  = kubernetes_namespace.semaphore.metadata[0].name
-  version    = "15.1.0" # pin a version suitable for your cluster
+  version    = "15.1.0"
 
   values = [
-    <<EOF
-image:
-  tag: "latest" 
-yamlencode({
-    primary = {
-      podSecurityContext = {
-        fsGroup = 1001
+    yamlencode({
+      image = {
+        tag = "latest"
       }
-      containerSecurityContext = {
-        runAsUser  = 1001
-        runAsGroup = 1001
+
+      primary = {
+        persistence = {
+          enabled = false
+        }
+
+        podSecurityContext = {
+          fsGroup = 1001
+        }
+
+        containerSecurityContext = {
+          runAsUser  = 1001
+          runAsGroup = 1001
+        }
       }
-    }
-  })
-primary:
-  persistence:
-    enabled: false
-postgresqlPassword: "${var.postgres_password}"
-postgresqlDatabase: semaphore
-postgresqlUsername: semaphore
-EOF
+
+      postgresqlPassword = var.postgres_password
+      postgresqlDatabase = "semaphore"
+      postgresqlUsername = "semaphore"
+    })
   ]
 }
 
