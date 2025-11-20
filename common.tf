@@ -14,7 +14,7 @@ resource "helm_release" "postgres" {
   values = [
     <<EOF
 image:
-  tag: "16.3.0" 
+  tag: "latest" 
 primary:
   persistence:
     enabled: false
