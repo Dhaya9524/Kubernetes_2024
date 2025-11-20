@@ -23,10 +23,12 @@ resource "helm_release" "postgres" {
         }
 
         podSecurityContext = {
+          enabled = true
           fsGroup = 1001
         }
 
         containerSecurityContext = {
+          enabled = true
           runAsUser  = 1001
           runAsGroup = 1001
         }
