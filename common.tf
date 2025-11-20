@@ -15,6 +15,17 @@ resource "helm_release" "postgres" {
     <<EOF
 image:
   tag: "latest" 
+yamlencode({
+    primary = {
+      podSecurityContext = {
+        fsGroup = 1001
+      }
+      containerSecurityContext = {
+        runAsUser  = 1001
+        runAsGroup = 1001
+      }
+    }
+  })
 primary:
   persistence:
     enabled: false
