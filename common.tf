@@ -13,7 +13,8 @@ resource "helm_release" "postgres" {
 
   values = [
     <<EOF
-
+image:
+  tag: "16.3.0-debian-12-r0" 
 primary:
   persistence:
     enabled: false
