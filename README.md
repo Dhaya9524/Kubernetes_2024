@@ -1,2 +1,0 @@
-# Kubernetes
-Yaml_dumps
